@@ -1,0 +1,12 @@
+{
+  "name": "seatsio-react-native-poc",
+  "displayName": "seatsio-react-native-poc",
+  "expo": {
+    "name": "seatsio-react-native-poc",
+    "slug": "seatsio-react-native-poc",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
