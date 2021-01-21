@@ -32,7 +32,7 @@ export default class SeatsioSeatingChart extends React.Component {
             <WebView
                 originWhitelist={['*']}
                 source={{html: html}}
-                onMessage={(event) =>{
+                onMessage={(event) => {
                     console.log(event.nativeEvent.data)
                 }}
             />
