@@ -1,5 +1,6 @@
 import {WebView} from "react-native-webview";
 import React from "react";
+import PropTypes from 'prop-types'
 
 export default class SeatsioSeatingChart extends React.Component {
 
@@ -60,3 +61,9 @@ SeatsioSeatingChart.defaultProps = {
     divId: 'chart',
     chartJsUrl: 'https://cdn.seatsio.net/chart.js'
 };
+
+SeatsioSeatingChart.propTypes = {
+    workspaceKey: PropTypes.string.isRequired,
+    event: PropTypes.string,
+    onChartRendered: PropTypes.func
+}
