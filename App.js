@@ -15,8 +15,9 @@ export default function App() {
     return (
         <View style={styles.container}>
             <SeatsioSeatingChart
+                chartJsUrl="http:/localhost:9001/chart.js"
                 workspaceKey="publicDemoKey"
-                event="smallTheatreEvent"
+                event="smallTheatreEvent2"
             />
         </View>
     )
