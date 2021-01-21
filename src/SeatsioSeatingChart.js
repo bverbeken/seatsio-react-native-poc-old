@@ -3,7 +3,23 @@ import React from "react";
 
 export default class SeatsioSeatingChart extends React.Component {
 
+    onMessage (event) {
+        console.log(event.nativeEvent.data)
+    }
+
     render() {
+        const pipeConsoleLog = `
+            console = new Object();
+            console.log = function(log) {
+                window.ReactNativeWebView.postMessage('$Webview: '+log);
+            };
+            console.debug = console.log;
+            console.info = console.log;
+            console.warn = console.log;
+            console.error = console.log;
+        `;
+
+
         const html = `
         <html lang="en">
         <head>
@@ -26,15 +42,12 @@ export default class SeatsioSeatingChart extends React.Component {
         </html>
         `
 
-        console.log(html)
-
         return (
             <WebView
                 originWhitelist={['*']}
                 source={{html: html}}
-                onMessage={(event) => {
-                    console.log(event.nativeEvent.data)
-                }}
+                injectedJavaScriptBeforeContentLoaded={pipeConsoleLog}
+                onMessage={this.onMessage}
             />
         );
     }
