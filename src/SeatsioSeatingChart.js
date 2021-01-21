@@ -17,9 +17,12 @@ export default class SeatsioSeatingChart extends React.Component {
         let config = {
             divId: this.props.divId,
             workspaceKey: this.props.workspaceKey,
-            event: this.props.event
         }
-        console.log(JSON.stringify(config))
+        if (this.props.event) {
+            config.event = this.props.event
+        } else if (this.props.events) {
+            config.events = this.props.events
+        }
         let configString = JSON.stringify(config).slice(0, -1)
         if (this.props.onChartRendered) {
             configString += `
@@ -87,5 +90,6 @@ SeatsioSeatingChart.defaultProps = {
 SeatsioSeatingChart.propTypes = {
     workspaceKey: PropTypes.string.isRequired,
     event: PropTypes.string,
+    events: PropTypes.array,
     onChartRendered: PropTypes.func
 }

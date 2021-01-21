@@ -17,7 +17,7 @@ export default function App() {
             <SeatsioSeatingChart
                 chartJsUrl="http:/localhost:9001/chart.js"
                 workspaceKey="publicDemoKey"
-                event="smallTheatreEvent2"
+                events={["smallTheatreEvent2"]}
                 onChartRendered={ chart => console.log(chart)}
             />
         </View>
