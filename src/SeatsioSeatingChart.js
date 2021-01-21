@@ -4,13 +4,34 @@ import PropTypes from 'prop-types'
 
 export default class SeatsioSeatingChart extends React.Component {
 
-    onMessage (event) {
+    onMessage(event) {
         let message = JSON.parse(event.nativeEvent.data);
         if (message.type === "log") {
             console.log(message.data)
         } else if (message.type === "onChartRendered") {
             this.props.onChartRendered(message.data)
         }
+    }
+
+    propsToChartConfig() {
+        let config = {
+            divId: this.props.divId,
+            workspaceKey: this.props.workspaceKey,
+            event: this.props.event
+        }
+        console.log(JSON.stringify(config))
+        let configString = JSON.stringify(config).slice(0, -1)
+        if (this.props.onChartRendered) {
+            configString += `
+                , "onChartRendered": (chart) => {
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                        type: "onChartRendered",
+                        data: chart
+                    }))
+                }
+            `
+        }
+        return configString + '}'
     }
 
     render() {
@@ -39,17 +60,7 @@ export default class SeatsioSeatingChart extends React.Component {
         <body>
             <div id="${this.props.divId}"></div>
             <script>
-                new seatsio.SeatingChart({
-                    divId: "${this.props.divId}",
-                    workspaceKey: "${this.props.workspaceKey}",
-                    event: "${this.props.event}",
-                    onChartRendered: (chart) => {
-                        window.ReactNativeWebView.postMessage(JSON.stringify({
-                            type: "onChartRendered", 
-                            data: chart
-                        }))
-                    }
-                }).render();
+                new seatsio.SeatingChart(${this.propsToChartConfig()}).render();
             </script>
         </body> 
         </html>
