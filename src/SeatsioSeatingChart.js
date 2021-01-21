@@ -16,7 +16,10 @@ export default class SeatsioSeatingChart extends React.Component {
                 new seatsio.SeatingChart({
                     divId: "${this.props.divId}",
                     workspaceKey: "${this.props.workspaceKey}",
-                    event: "${this.props.event}"
+                    event: "${this.props.event}",
+                    onChartRendered: () => {
+                        window.ReactNativeWebView.postMessage("Hello Chart Rendered! This msg can only be a string")
+                    }
                 }).render();
             </script>
         </body> 
@@ -29,6 +32,9 @@ export default class SeatsioSeatingChart extends React.Component {
             <WebView
                 originWhitelist={['*']}
                 source={{html: html}}
+                onMessage={(event) =>{
+                    console.log(event.nativeEvent.data)
+                }}
             />
         );
     }
