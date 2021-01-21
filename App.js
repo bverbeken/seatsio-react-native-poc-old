@@ -18,6 +18,7 @@ export default function App() {
                 chartJsUrl="http:/localhost:9001/chart.js"
                 workspaceKey="publicDemoKey"
                 event="smallTheatreEvent2"
+                onChartRendered={ chart => console.log(chart)}
             />
         </View>
     )

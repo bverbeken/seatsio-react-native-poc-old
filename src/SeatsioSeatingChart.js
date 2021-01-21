@@ -5,14 +5,22 @@ import PropTypes from 'prop-types'
 export default class SeatsioSeatingChart extends React.Component {
 
     onMessage (event) {
-        console.log(event.nativeEvent.data)
+        let message = JSON.parse(event.nativeEvent.data);
+        if (message.type === "log") {
+            console.log(message.data)
+        } else if (message.type === "onChartRendered") {
+            this.props.onChartRendered(message.data)
+        }
     }
 
     render() {
         const pipeConsoleLog = `
             console = new Object();
             console.log = function(log) {
-                window.ReactNativeWebView.postMessage('$Webview: '+log);
+                window.ReactNativeWebView.postMessage(JSON.stringify({
+                    type: "log", 
+                    data: log
+                })));
             };
             console.debug = console.log;
             console.info = console.log;
@@ -35,8 +43,11 @@ export default class SeatsioSeatingChart extends React.Component {
                     divId: "${this.props.divId}",
                     workspaceKey: "${this.props.workspaceKey}",
                     event: "${this.props.event}",
-                    onChartRendered: () => {
-                        window.ReactNativeWebView.postMessage("Hello Chart Rendered! This msg can only be a string")
+                    onChartRendered: (chart) => {
+                        window.ReactNativeWebView.postMessage(JSON.stringify({
+                            type: "onChartRendered", 
+                            data: chart
+                        }))
                     }
                 }).render();
             </script>
@@ -49,7 +60,7 @@ export default class SeatsioSeatingChart extends React.Component {
                 originWhitelist={['*']}
                 source={{html: html}}
                 injectedJavaScriptBeforeContentLoaded={pipeConsoleLog}
-                onMessage={this.onMessage}
+                onMessage={this.onMessage.bind(this)}
             />
         );
     }
