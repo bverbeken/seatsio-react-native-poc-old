@@ -35,4 +35,12 @@ export default class SeatsioSeatingChartConfig {
         }
         return configString + '}'
     }
+
+    getJavascriptToInject() {
+        let result = "";
+        if (this.props.priceFormatter) {
+            result += this.props.priceFormatter.toString();
+        }
+        return result;
+    }
 }

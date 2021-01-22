@@ -5,13 +5,18 @@ import SeatsioSeatingChartConfig from "./SeatsioSeatingChartConfig";
 
 export default class SeatsioSeatingChart extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.seatsioConfig = new SeatsioSeatingChartConfig(this.props)
+    }
+
     render() {
         return (
             <WebView
                 originWhitelist={['*']}
                 source={{html: this.html()}}
                 injectedJavaScriptBeforeContentLoaded={this.pipeConsoleLog()}
-                injectedJavaScript={this.getJavascriptToInject()}
+                injectedJavaScript={this.seatsioConfig.getJavascriptToInject()}
                 onMessage={this.onMessage.bind(this)}
             />
         );
@@ -37,9 +42,9 @@ export default class SeatsioSeatingChart extends React.Component {
             <body>
                 <div id="${this.props.divId}"></div>
                 <script>
-                    new seatsio.SeatingChart(${(new SeatsioSeatingChartConfig(this.props).asString())}).render();
+                    new seatsio.SeatingChart(${this.seatsioConfig.asString()}).render();
                 </script>
-            </body> 
+            </body>
             </html>
         `;
     }
@@ -49,7 +54,7 @@ export default class SeatsioSeatingChart extends React.Component {
             console = new Object();
             console.log = function(log) {
                 window.ReactNativeWebView.postMessage(JSON.stringify({
-                    type: "log", 
+                    type: "log",
                     data: log
                 })));
             };
@@ -58,14 +63,6 @@ export default class SeatsioSeatingChart extends React.Component {
             console.warn = console.log;
             console.error = console.log;
         `
-    }
-
-    getJavascriptToInject() {
-        let result = "";
-        if (this.props.priceFormatter) {
-            result += this.props.priceFormatter.toString();
-        }
-        return result;
     }
 }
 
