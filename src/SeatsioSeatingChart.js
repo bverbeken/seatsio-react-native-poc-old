@@ -5,6 +5,18 @@ import SeatsioSeatingChartConfig from "./SeatsioSeatingChartConfig";
 
 export default class SeatsioSeatingChart extends React.Component {
 
+    render() {
+        return (
+            <WebView
+                originWhitelist={['*']}
+                source={{html: this.html()}}
+                injectedJavaScriptBeforeContentLoaded={this.pipeConsoleLog()}
+                injectedJavaScript={this.getJavascriptToInject()}
+                onMessage={this.onMessage.bind(this)}
+            />
+        );
+    }
+
     onMessage(event) {
         let message = JSON.parse(event.nativeEvent.data);
         if (message.type === "log") {
@@ -13,8 +25,27 @@ export default class SeatsioSeatingChart extends React.Component {
             this.props.onChartRendered(message.data)
         }
     }
-    render() {
-        const pipeConsoleLog = `
+
+    html() {
+        return `
+            <html lang="en">
+            <head>
+                <title>seating chart</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <script src="${this.props.chartJsUrl}"></script>
+            </head>
+            <body>
+                <div id="${this.props.divId}"></div>
+                <script>
+                    new seatsio.SeatingChart(${(new SeatsioSeatingChartConfig(this.props).asString())}).render();
+                </script>
+            </body> 
+            </html>
+        `;
+    }
+
+    pipeConsoleLog() {
+        return `
             console = new Object();
             console.log = function(log) {
                 window.ReactNativeWebView.postMessage(JSON.stringify({
@@ -26,38 +57,8 @@ export default class SeatsioSeatingChart extends React.Component {
             console.info = console.log;
             console.warn = console.log;
             console.error = console.log;
-        `;
-
-
-        const html = `
-        <html lang="en">
-        <head>
-            <title>seating chart</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <script src="${this.props.chartJsUrl}"></script>
-        </head>
-        <body>
-            <div id="${this.props.divId}"></div>
-            <script>
-                new seatsio.SeatingChart(${(new SeatsioSeatingChartConfig(this.props).asString())}).render();
-            </script>
-        </body> 
-        </html>
         `
-
-        const injectedJavascript = this.getJavascriptToInject()
-
-        return (
-            <WebView
-                originWhitelist={['*']}
-                source={{html: html}}
-                injectedJavaScriptBeforeContentLoaded={pipeConsoleLog}
-                injectedJavaScript={injectedJavascript}
-                onMessage={this.onMessage.bind(this)}
-            />
-        );
     }
-
 
     getJavascriptToInject() {
         let result = "";
