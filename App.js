@@ -27,6 +27,7 @@ export default function App() {
                 priceFormatter={ price => '$ ' + price}
                 // numberOfPlacesToSelect={2}
                 // selectedObjects={['A-8']}
+                session={"continue"}
 
             />
         </View>
