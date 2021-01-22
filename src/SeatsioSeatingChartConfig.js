@@ -13,6 +13,10 @@ export default class SeatsioSeatingChartConfig {
         } else if (this.props.events) {
             config.events = this.props.events
         }
+        return this.addCallbacks(config);
+    }
+
+    addCallbacks(config) {
         let configString = JSON.stringify(config).slice(0, -1)
         if (this.props.onChartRendered) {
             configString += `
@@ -26,5 +30,4 @@ export default class SeatsioSeatingChartConfig {
         }
         return configString + '}'
     }
-
 }
