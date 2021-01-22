@@ -9,7 +9,8 @@ export default class SeatsioSeatingChartConfig {
             workspaceKey: this.props.workspaceKey,
             event: this.props.event,
             events: this.props.events,
-            pricing: this.props.pricing
+            pricing: this.props.pricing,
+            numberOfPlacesToSelect: this.props.numberOfPlacesToSelect
         }
         return this.addCallbacks(config);
     }

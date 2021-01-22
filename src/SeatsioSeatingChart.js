@@ -78,5 +78,6 @@ SeatsioSeatingChart.propTypes = {
     workspaceKey: PropTypes.string.isRequired,
     onChartRendered: PropTypes.func,
     pricing: PropTypes.array,
-    priceFormatter: PropTypes.func
+    priceFormatter: PropTypes.func,
+    numberOfPlacesToSelect: PropTypes.number
 }

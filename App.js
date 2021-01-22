@@ -20,18 +20,12 @@ export default function App() {
                 events={["smallTheatreEvent2"]}
                 onChartRendered={ chart => console.log(chart)}
                 pricing={[
-                        {'category': 1, 'ticketTypes': [
-                                {'ticketType': 'adult', 'price': 30},
-                                {'ticketType': 'child', 'price': 20}
-                            ]},
-                        {'category': 2, 'ticketTypes': [
-                                {'ticketType': 'adult', 'price': 40},
-                                {'ticketType': 'child', 'price': 30},
-                                {'ticketType': '65+', 'price': 25}
-                            ]},
-                        {'category': 3, 'price': 50}
+                    {'category': 1, 'price': 120},
+                    {'category': 2, 'price': 20},
+                    {'category': 3, 'price': 50}
                 ]}
                 priceFormatter={ price => '$ ' + price}
+                numberOfPlacesToSelect={2}
             />
         </View>
     )
