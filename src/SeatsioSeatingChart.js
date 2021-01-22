@@ -64,9 +64,10 @@ SeatsioSeatingChart.defaultProps = {
 };
 
 SeatsioSeatingChart.propTypes = {
-    divId: Proptypes.string,
-    workspaceKey: PropTypes.string.isRequired,
+    divId: PropTypes.string,
     event: PropTypes.string,
     events: PropTypes.array,
-    onChartRendered: PropTypes.func
+    workspaceKey: PropTypes.string.isRequired,
+    onChartRendered: PropTypes.func,
+    pricing: PropTypes.array
 }
