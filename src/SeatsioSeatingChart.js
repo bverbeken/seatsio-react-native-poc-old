@@ -45,17 +45,27 @@ export default class SeatsioSeatingChart extends React.Component {
         </html>
         `
 
+        const injectedJavascript = this.getJavascriptToInject()
+
         return (
             <WebView
                 originWhitelist={['*']}
                 source={{html: html}}
                 injectedJavaScriptBeforeContentLoaded={pipeConsoleLog}
+                injectedJavaScript={injectedJavascript}
                 onMessage={this.onMessage.bind(this)}
             />
         );
     }
 
 
+    getJavascriptToInject() {
+        let result = "";
+        if (this.props.priceFormatter) {
+            result += this.props.priceFormatter.toString();
+        }
+        return result;
+    }
 }
 
 SeatsioSeatingChart.defaultProps = {
@@ -69,5 +79,6 @@ SeatsioSeatingChart.propTypes = {
     events: PropTypes.array,
     workspaceKey: PropTypes.string.isRequired,
     onChartRendered: PropTypes.func,
-    pricing: PropTypes.array
+    pricing: PropTypes.array,
+    priceFormatter: PropTypes.func
 }

@@ -26,6 +26,13 @@ export default class SeatsioSeatingChartConfig {
                 }
             `
         }
+        if (this.props.priceFormatter) {
+            configString += `
+                , "priceFormatter": (price) => {
+                    return priceFormatter(price)
+                }
+            `
+        }
         return configString + '}'
     }
 }

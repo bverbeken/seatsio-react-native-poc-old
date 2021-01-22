@@ -31,6 +31,7 @@ export default function App() {
                             ]},
                         {'category': 3, 'price': 50}
                 ]}
+                priceFormatter={ price => '$ ' + price}
             />
         </View>
     )
