@@ -14,7 +14,8 @@ export default class SeatsioSeatingChartConfig {
             objectWithoutPricingSelectable: this.props.objectWithoutPricingSelectable,
             objectWithoutCategorySelectable: this.props.objectWithoutCategorySelectable,
             selectedObjects: this.props.selectedObjects,
-            session: this.props.session
+            session: this.props.session,
+            colorScheme: this.props.colorScheme
         }
         return this.addCallbacks(config);
     }
