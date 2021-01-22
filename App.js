@@ -25,7 +25,9 @@ export default function App() {
                     {'category': 3, 'price': 50}
                 ]}
                 priceFormatter={ price => '$ ' + price}
-                numberOfPlacesToSelect={2}
+                // numberOfPlacesToSelect={2}
+                // selectedObjects={['A-8']}
+
             />
         </View>
     )

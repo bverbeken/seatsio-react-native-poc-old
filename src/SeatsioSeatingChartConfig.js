@@ -10,7 +10,10 @@ export default class SeatsioSeatingChartConfig {
             event: this.props.event,
             events: this.props.events,
             pricing: this.props.pricing,
-            numberOfPlacesToSelect: this.props.numberOfPlacesToSelect
+            numberOfPlacesToSelect: this.props.numberOfPlacesToSelect,
+            objectWithoutPricingSelectable: this.props.objectWithoutPricingSelectable,
+            objectWithoutCategorySelectable: this.props.objectWithoutCategorySelectable,
+            selectedObjects: this.props.selectedObjects
         }
         return this.addCallbacks(config);
     }

@@ -79,5 +79,8 @@ SeatsioSeatingChart.propTypes = {
     onChartRendered: PropTypes.func,
     pricing: PropTypes.array,
     priceFormatter: PropTypes.func,
-    numberOfPlacesToSelect: PropTypes.number
+    numberOfPlacesToSelect: PropTypes.number,
+    objectWithoutPricingSelectable: PropTypes.bool,
+    objectWithoutCategorySelectable: PropTypes.bool,
+    selectedObjects: PropTypes.array
 }
