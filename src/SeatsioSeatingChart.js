@@ -64,6 +64,7 @@ SeatsioSeatingChart.defaultProps = {
 };
 
 SeatsioSeatingChart.propTypes = {
+    divId: Proptypes.string,
     workspaceKey: PropTypes.string.isRequired,
     event: PropTypes.string,
     events: PropTypes.array,
