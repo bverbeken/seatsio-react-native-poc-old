@@ -1,6 +1,7 @@
 import {WebView} from "react-native-webview";
 import React from "react";
 import PropTypes from 'prop-types'
+import SeatsioSeatingChartConfig from "./SeatsioSeatingChartConfig";
 
 export default class SeatsioSeatingChart extends React.Component {
 
@@ -12,31 +13,6 @@ export default class SeatsioSeatingChart extends React.Component {
             this.props.onChartRendered(message.data)
         }
     }
-
-    propsToChartConfig() {
-        let config = {
-            divId: this.props.divId,
-            workspaceKey: this.props.workspaceKey,
-        }
-        if (this.props.event) {
-            config.event = this.props.event
-        } else if (this.props.events) {
-            config.events = this.props.events
-        }
-        let configString = JSON.stringify(config).slice(0, -1)
-        if (this.props.onChartRendered) {
-            configString += `
-                , "onChartRendered": (chart) => {
-                    window.ReactNativeWebView.postMessage(JSON.stringify({
-                        type: "onChartRendered",
-                        data: chart
-                    }))
-                }
-            `
-        }
-        return configString + '}'
-    }
-
     render() {
         const pipeConsoleLog = `
             console = new Object();
@@ -63,7 +39,7 @@ export default class SeatsioSeatingChart extends React.Component {
         <body>
             <div id="${this.props.divId}"></div>
             <script>
-                new seatsio.SeatingChart(${this.propsToChartConfig()}).render();
+                new seatsio.SeatingChart(${(new SeatsioSeatingChartConfig(this.props).asString())}).render();
             </script>
         </body> 
         </html>
