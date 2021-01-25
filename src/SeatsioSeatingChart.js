@@ -2,21 +2,43 @@ import {WebView} from "react-native-webview";
 import React from "react";
 import PropTypes from 'prop-types'
 import SeatsioSeatingChartConfig from "./SeatsioSeatingChartConfig";
+import {didPropsChange} from "./util";
 
 export default class SeatsioSeatingChart extends React.Component {
 
     constructor(props) {
         super(props);
-        this.seatsioConfig = new SeatsioSeatingChartConfig(this.props)
+    }
+
+
+    async componentDidUpdate(prevProps) {
+        if (didPropsChange(this.props, prevProps)) {
+            this.destroyChart();
+            this.rerenderChart();
+        }
+
+    }
+
+    rerenderChart() {
+        this.injectJs(`chart = new seatsio.SeatingChart(${new SeatsioSeatingChartConfig(this.props).asString()}).render();`)
+    }
+
+    destroyChart() {
+        this.injectJs("chart.destroy();")
+    }
+
+    injectJs(js) {
+        this.webRef.injectJavaScript(js + '; true;')
     }
 
     render() {
         return (
             <WebView
+                ref={(r) => (this.webRef = r)}
                 originWhitelist={['*']}
                 source={{html: this.html()}}
                 injectedJavaScriptBeforeContentLoaded={this.pipeConsoleLog()}
-                injectedJavaScript={this.seatsioConfig.getJavascriptToInject()}
+                injectedJavaScript={new SeatsioSeatingChartConfig(this.props).getJavascriptToInject()}
                 onMessage={this.onMessage.bind(this)}
             />
         );
@@ -42,7 +64,7 @@ export default class SeatsioSeatingChart extends React.Component {
             <body>
                 <div id="${this.props.divId}"></div>
                 <script>
-                    new seatsio.SeatingChart(${this.seatsioConfig.asString()}).render();
+                    let chart = new seatsio.SeatingChart(${new SeatsioSeatingChartConfig(this.props).asString()}).render();
                 </script>
             </body>
             </html>
