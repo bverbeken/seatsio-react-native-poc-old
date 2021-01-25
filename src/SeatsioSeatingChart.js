@@ -1,7 +1,6 @@
 import {WebView} from "react-native-webview";
 import React from "react";
 import PropTypes from 'prop-types'
-import SeatsioSeatingChartConfig from "./SeatsioSeatingChartConfig";
 import {didPropsChange} from "./util";
 
 export default class SeatsioSeatingChart extends React.Component {
@@ -20,7 +19,7 @@ export default class SeatsioSeatingChart extends React.Component {
     }
 
     rerenderChart() {
-        this.injectJs(`chart = new seatsio.SeatingChart(${new SeatsioSeatingChartConfig(this.props).asString()}).render();`)
+        this.injectJs(`chart = new seatsio.SeatingChart(${this.configAsString()}).render();`)
     }
 
     destroyChart() {
@@ -38,13 +37,13 @@ export default class SeatsioSeatingChart extends React.Component {
                 originWhitelist={['*']}
                 source={{html: this.html()}}
                 injectedJavaScriptBeforeContentLoaded={this.pipeConsoleLog()}
-                injectedJavaScript={new SeatsioSeatingChartConfig(this.props).getJavascriptToInject()}
-                onMessage={this.onMessage.bind(this)}
+                injectedJavaScript={this.getJavascriptToInject()}
+                onMessage={this.handleMessage.bind(this)}
             />
         );
     }
 
-    onMessage(event) {
+    handleMessage(event) {
         let message = JSON.parse(event.nativeEvent.data);
         if (message.type === "log") {
             console.log(message.data)
@@ -64,11 +63,55 @@ export default class SeatsioSeatingChart extends React.Component {
             <body>
                 <div id="${this.props.divId}"></div>
                 <script>
-                    let chart = new seatsio.SeatingChart(${new SeatsioSeatingChartConfig(this.props).asString()}).render();
+                    let chart = new seatsio.SeatingChart(${this.configAsString()}).render();
                 </script>
             </body>
             </html>
         `;
+    }
+
+    getJavascriptToInject() {
+        let result = "";
+        if (this.props.priceFormatter) {
+            result += this.props.priceFormatter.toString();
+        }
+        return result;
+    }
+
+    configAsString() {
+        let config = {
+            divId: this.props.divId,
+            workspaceKey: this.props.workspaceKey,
+            event: this.props.event,
+            events: this.props.events,
+            pricing: this.props.pricing,
+            numberOfPlacesToSelect: this.props.numberOfPlacesToSelect,
+            objectWithoutPricingSelectable: this.props.objectWithoutPricingSelectable,
+            objectWithoutCategorySelectable: this.props.objectWithoutCategorySelectable,
+            selectedObjects: this.props.selectedObjects,
+            session: this.props.session,
+            colorScheme: this.props.colorScheme
+        }
+        let configString = JSON.stringify(config).slice(0, -1)
+        if (this.props.onChartRendered) {
+            configString += `
+                , "onChartRendered": (chart) => {
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                        type: "onChartRendered",
+                        data: chart
+                    }))
+                }
+            `
+        }
+        if (this.props.priceFormatter) {
+            configString += `
+                , "priceFormatter": (price) => {
+                    return priceFormatter(price)
+                }
+            `
+        }
+        configString += '}'
+        return configString
     }
 
     pipeConsoleLog() {
@@ -86,6 +129,7 @@ export default class SeatsioSeatingChart extends React.Component {
             console.error = console.log;
         `
     }
+
 }
 
 SeatsioSeatingChart.defaultProps = {
@@ -105,6 +149,6 @@ SeatsioSeatingChart.propTypes = {
     objectWithoutPricingSelectable: PropTypes.bool,
     objectWithoutCategorySelectable: PropTypes.bool,
     selectedObjects: PropTypes.array,
-    session: PropTypes.oneOf['continue', 'manual', 'start', 'none'],
+    session: PropTypes.oneOf(['continue', 'manual', 'start', 'none']),
     colorScheme: PropTypes.string
 }
