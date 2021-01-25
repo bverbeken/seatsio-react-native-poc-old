@@ -105,6 +105,6 @@ SeatsioSeatingChart.propTypes = {
     objectWithoutPricingSelectable: PropTypes.bool,
     objectWithoutCategorySelectable: PropTypes.bool,
     selectedObjects: PropTypes.array,
-    session: PropTypes.string,
+    session: PropTypes.oneOf['continue', 'manual', 'start', 'none'],
     colorScheme: PropTypes.string
 }
