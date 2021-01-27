@@ -53,6 +53,7 @@ export default class App extends React.Component {
                         // selectedObjects={['A-8']}
                         //  session={"continue"}
                         colorScheme={this.state.colorScheme}
+                        tooltipInfo={object => "[b]This[/b] object's [i]id[/i] is [pre]" + object.label + "[/pre]"}
                     />
                 </View>
                 <View style={this.styles.buttons}>

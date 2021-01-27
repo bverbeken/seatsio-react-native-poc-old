@@ -1,7 +1,6 @@
 
 objectTooltip
 mobileTooltip
-tooltipInfo
 themePreset
 themeColors
 language

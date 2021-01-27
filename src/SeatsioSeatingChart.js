@@ -37,7 +37,6 @@ export default class SeatsioSeatingChart extends React.Component {
                 originWhitelist={['*']}
                 source={{html: this.html()}}
                 injectedJavaScriptBeforeContentLoaded={this.pipeConsoleLog()}
-                injectedJavaScript={this.getJavascriptToInject()}
                 onMessage={this.handleMessage.bind(this)}
             />
         );
@@ -52,6 +51,9 @@ export default class SeatsioSeatingChart extends React.Component {
         } else if (message.type === "priceFormatterRequested") {
             let formattedPrice = this.props.priceFormatter(message.data.price)
             this.injectJs(`resolvePromise(${message.data.promiseId}, "${formattedPrice}")`);
+        } else if (message.type === "tooltipInfoRequested") {
+            let tooltipInfo = this.props.tooltipInfo(message.data.object)
+            this.injectJs(`resolvePromise(${message.data.promiseId}, "${tooltipInfo}")`);
         }
     }
 
@@ -79,14 +81,6 @@ export default class SeatsioSeatingChart extends React.Component {
             </body>
             </html>
         `;
-    }
-
-    getJavascriptToInject() {
-        let result = "";
-        if (this.props.priceFormatter) {
-            result += this.props.priceFormatter.toString();
-        }
-        return result;
     }
 
     configAsString() {
@@ -123,6 +117,23 @@ export default class SeatsioSeatingChart extends React.Component {
                         data: {
                             promiseId: promiseCounter,
                             price: price
+                        }
+                    }));
+                    return new Promise((resolve) => {
+                        promises[promiseCounter] = resolve;
+                    });
+                }
+            `
+        }
+        if (this.props.tooltipInfo) {
+            configString += `
+                , "tooltipInfo": (object) => {
+                    promiseCounter++;
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                        type: "tooltipInfoRequested",
+                        data: {
+                            promiseId: promiseCounter,
+                            object: object
                         }
                     }));
                     return new Promise((resolve) => {
@@ -171,5 +182,6 @@ SeatsioSeatingChart.propTypes = {
     objectWithoutCategorySelectable: PropTypes.bool,
     selectedObjects: PropTypes.array,
     session: PropTypes.oneOf(['continue', 'manual', 'start', 'none']),
-    colorScheme: PropTypes.string
+    colorScheme: PropTypes.string,
+    tooltipInfo: PropTypes.func,
 }
