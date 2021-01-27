@@ -49,6 +49,9 @@ export default class SeatsioSeatingChart extends React.Component {
             console.log(message.data)
         } else if (message.type === "onChartRendered") {
             this.props.onChartRendered(message.data)
+        } else if (message.type === "priceFormatterRequested") {
+            let formattedPrice = this.props.priceFormatter(message.data.price)
+            this.injectJs(`resolvePromise(${message.data.promiseId}, "${formattedPrice}")`);
         }
     }
 
@@ -61,6 +64,14 @@ export default class SeatsioSeatingChart extends React.Component {
                 <script src="${this.props.chartJsUrl}"></script>
             </head>
             <body>
+                <script>
+                    let promises = [];
+                    let promiseCounter = 0;
+                    
+                    const resolvePromise = (promiseId, data) => {
+                        promises[promiseId](data)
+                    }
+                </script>
                 <div id="${this.props.divId}"></div>
                 <script>
                     let chart = new seatsio.SeatingChart(${this.configAsString()}).render();
@@ -106,7 +117,17 @@ export default class SeatsioSeatingChart extends React.Component {
         if (this.props.priceFormatter) {
             configString += `
                 , "priceFormatter": (price) => {
-                    return priceFormatter(price)
+                    promiseCounter++;
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                        type: "priceFormatterRequested",
+                        data: {
+                            promiseId: promiseCounter,
+                            price: price
+                        }
+                    }));
+                    return new Promise((resolve) => {
+                        promises[promiseCounter] = resolve;
+                    });
                 }
             `
         }
