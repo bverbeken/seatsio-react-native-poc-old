@@ -1,5 +1,4 @@
-objectIcon
-isObjectVisible
+
 canGASelectionBeIncreased
 selectBestAvailable
 showRowLines
