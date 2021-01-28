@@ -29,9 +29,9 @@ export default class App extends React.Component {
 
     toggleColorScheme() {
         if (this.state.colorScheme === 'light') {
-            this.setState({ colorScheme: 'dark' })
+            this.setState({colorScheme: 'dark'})
         } else {
-            this.setState({ colorScheme: 'light' })
+            this.setState({colorScheme: 'light'})
         }
     }
 
@@ -63,6 +63,10 @@ export default class App extends React.Component {
                             showUnavailableNotice: true,
                             stylizedLabel: true,
                             confirmSelectionOnMobile: "auto"
+                        }}
+                        language={"fr"}
+                        messages={{
+                            'ORGAN': 'Hello World!'
                         }}
                     />
                 </View>

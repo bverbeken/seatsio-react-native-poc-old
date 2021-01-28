@@ -172,5 +172,7 @@ SeatsioSeatingChart.propTypes = {
     session: PropTypes.oneOf(['continue', 'manual', 'start', 'none']),
     colorScheme: PropTypes.string,
     tooltipInfo: PropTypes.func,
-    objectTooltip: PropTypes.object
+    objectTooltip: PropTypes.object,
+    language: PropTypes.string,
+    messages: PropTypes.object
 }
