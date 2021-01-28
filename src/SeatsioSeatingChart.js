@@ -84,22 +84,9 @@ export default class SeatsioSeatingChart extends React.Component {
     }
 
     configAsString() {
-        let config = {
-            divId: this.props.divId,
-            workspaceKey: this.props.workspaceKey,
-            event: this.props.event,
-            events: this.props.events,
-            pricing: this.props.pricing,
-            numberOfPlacesToSelect: this.props.numberOfPlacesToSelect,
-            objectWithoutPricingSelectable: this.props.objectWithoutPricingSelectable,
-            objectWithoutCategorySelectable: this.props.objectWithoutCategorySelectable,
-            selectedObjects: this.props.selectedObjects,
-            session: this.props.session,
-            colorScheme: this.props.colorScheme,
-            objectTooltip: this.props.objectTooltip
-        }
+        let {onChartRendered,priceFormatter, tooltipInfo, ...config} = this.props
         let configString = JSON.stringify(config).slice(0, -1)
-        if (this.props.onChartRendered) {
+        if (onChartRendered) {
             configString += `
                 , "onChartRendered": (chart) => {
                     window.ReactNativeWebView.postMessage(JSON.stringify({
@@ -109,7 +96,7 @@ export default class SeatsioSeatingChart extends React.Component {
                 }
             `
         }
-        if (this.props.priceFormatter) {
+        if (priceFormatter) {
             configString += `
                 , "priceFormatter": (price) => {
                     promiseCounter++;
@@ -126,7 +113,7 @@ export default class SeatsioSeatingChart extends React.Component {
                 }
             `
         }
-        if (this.props.tooltipInfo) {
+        if (tooltipInfo) {
             configString += `
                 , "tooltipInfo": (object) => {
                     promiseCounter++;

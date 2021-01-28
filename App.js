@@ -59,7 +59,7 @@ export default class App extends React.Component {
                             showAvailability: false,
                             showCategory: true,
                             showLabel: true,
-                            showPricing: false,
+                            showPricing: true,
                             showUnavailableNotice: true,
                             stylizedLabel: true,
                             confirmSelectionOnMobile: "auto"
