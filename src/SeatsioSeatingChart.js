@@ -174,5 +174,14 @@ SeatsioSeatingChart.propTypes = {
     tooltipInfo: PropTypes.func,
     objectTooltip: PropTypes.object,
     language: PropTypes.string,
-    messages: PropTypes.object
+    messages: PropTypes.object,
+    maxSelectedObjects: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.array
+    ]),
+    selectedObjectsInputName: PropTypes.string,
+    unavailableCategories: PropTypes.array,
+    availableCategories: PropTypes.array,
+    selectableObjects: PropTypes.array,
+    filteredCategories: PropTypes.array
 }

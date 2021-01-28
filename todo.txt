@@ -1,9 +1,9 @@
-maxSelectedObjects
-selectedObjectsInputName
-unavailableCategories
-availableCategories
-selectableObjects
-filteredCategories
+
+
+
+
+
+
 objectColor
 sectionColor
 objectLabel

@@ -68,6 +68,7 @@ export default class App extends React.Component {
                         messages={{
                             'ORGAN': 'Hello World!'
                         }}
+                        maxSelectedObjects={3}
                     />
                 </View>
                 <View style={this.styles.buttons}>
