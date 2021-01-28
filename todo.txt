@@ -1,4 +1,3 @@
-objectLabel
 objectIcon
 isObjectVisible
 canGASelectionBeIncreased
