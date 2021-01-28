@@ -69,6 +69,7 @@ export default class App extends React.Component {
                             'ORGAN': 'Hello World!'
                         }}
                         maxSelectedObjects={3}
+                        objectColor={(obj, defaultColor, extraConfig) => 'blue'}
                     />
                 </View>
                 <View style={this.styles.buttons}>
