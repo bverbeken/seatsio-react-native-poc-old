@@ -84,7 +84,18 @@ export default class SeatsioSeatingChart extends React.Component {
     }
 
     configAsString() {
-        let {onChartRendered,priceFormatter, tooltipInfo, objectColor, sectionColor, objectLabel, objectIcon, isObjectVisible, ...config} = this.props
+        let {
+            onChartRendered,
+            priceFormatter,
+            tooltipInfo,
+            objectColor,
+            sectionColor,
+            objectLabel,
+            objectIcon,
+            isObjectVisible,
+            canGASelectionBeIncreased,
+            ...config
+        } = this.props
         let configString = JSON.stringify(config).slice(0, -1)
         if (onChartRendered) {
             configString += `
@@ -170,6 +181,14 @@ export default class SeatsioSeatingChart extends React.Component {
                 }
             `
         }
+        if (canGASelectionBeIncreased) {
+            configString += `
+                , "canGASelectionBeIncreased": (gaArea, defaultValue, extraConfig, ticketType) => {
+                        ${canGASelectionBeIncreased.toString()}
+                        return canGASelectionBeIncreased(gaArea, defaultValue, extraConfig, ticketType);
+                }
+            `
+        }
         configString += '}'
         return configString
     }
@@ -228,5 +247,6 @@ SeatsioSeatingChart.propTypes = {
     sectionColor: PropTypes.func,
     objectLabel: PropTypes.func,
     objectIcon: PropTypes.func,
-    isObjectVisible: PropTypes.func
+    isObjectVisible: PropTypes.func,
+    canGASelectionBeIncreased: PropTypes.func
 }
