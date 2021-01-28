@@ -54,6 +54,16 @@ export default class App extends React.Component {
                         //  session={"continue"}
                         colorScheme={this.state.colorScheme}
                         tooltipInfo={object => "[b]This[/b] object's [i]id[/i] is [pre]" + object.label + "[/pre]"}
+                        objectTooltip={{
+                            showActionHint: true,
+                            showAvailability: false,
+                            showCategory: true,
+                            showLabel: true,
+                            showPricing: false,
+                            showUnavailableNotice: true,
+                            stylizedLabel: true,
+                            confirmSelectionOnMobile: "auto"
+                        }}
                     />
                 </View>
                 <View style={this.styles.buttons}>

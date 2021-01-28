@@ -95,7 +95,8 @@ export default class SeatsioSeatingChart extends React.Component {
             objectWithoutCategorySelectable: this.props.objectWithoutCategorySelectable,
             selectedObjects: this.props.selectedObjects,
             session: this.props.session,
-            colorScheme: this.props.colorScheme
+            colorScheme: this.props.colorScheme,
+            objectTooltip: this.props.objectTooltip
         }
         let configString = JSON.stringify(config).slice(0, -1)
         if (this.props.onChartRendered) {
@@ -184,4 +185,5 @@ SeatsioSeatingChart.propTypes = {
     session: PropTypes.oneOf(['continue', 'manual', 'start', 'none']),
     colorScheme: PropTypes.string,
     tooltipInfo: PropTypes.func,
+    objectTooltip: PropTypes.object
 }
