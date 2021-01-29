@@ -79,7 +79,9 @@ export default class App extends React.Component {
                             hideCategoryName: true
                         }}
                         showActiveSectionTooltipOnMobile={true}
-                        onSelectionValidators={[]}
+                        objectCategory={(object, categories, defaultCategory, extraConfig) => {
+                            return categories.get('Stalls');
+                        }}
                     />
                 </View>
                 <View style={this.styles.buttons}>

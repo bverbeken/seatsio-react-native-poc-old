@@ -5,10 +5,6 @@ showRowLines - no effect on mobile
 holdTokenInputName - is this useful?
 regenerateHoldToken - deprecated
 
-
-
-
-objectCategory
 extraConfig
 inputDevice
 loading

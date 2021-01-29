@@ -94,6 +94,7 @@ export default class SeatsioSeatingChart extends React.Component {
             objectIcon,
             isObjectVisible,
             canGASelectionBeIncreased,
+            objectCategory,
             ...config
         } = this.props
         let configString = JSON.stringify(config).slice(0, -1)
@@ -189,6 +190,14 @@ export default class SeatsioSeatingChart extends React.Component {
                 }
             `
         }
+        if (objectCategory) {
+            configString += `
+                , "objectCategory": (object, categories, defaultCategory, extraConfig) => {
+                        ${objectCategory.toString()}
+                        return objectCategory(object, categories, defaultCategory, extraConfig);
+                }
+            `
+        }
         configString += '}'
         return configString
     }
@@ -265,6 +274,7 @@ SeatsioSeatingChart.propTypes = {
     selectionValidators: PropTypes.array,
     categories: PropTypes.array,
     categoryFilter: PropTypes.object,
-    objectCategories: PropTypes.object
+    objectCategories: PropTypes.object,
+    objectCategory: PropTypes.func
 
 }
