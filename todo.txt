@@ -4,10 +4,10 @@ selectBestAvailable - deprecated
 showRowLines - no effect on mobile
 holdTokenInputName - is this useful?
 regenerateHoldToken - deprecated
-selectionValidators
-categories
-categoryFilter
-objectCategories
+
+
+
+
 objectCategory
 extraConfig
 inputDevice

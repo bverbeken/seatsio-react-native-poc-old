@@ -79,6 +79,7 @@ export default class App extends React.Component {
                             hideCategoryName: true
                         }}
                         showActiveSectionTooltipOnMobile={true}
+                        onSelectionValidators={[]}
                     />
                 </View>
                 <View style={this.styles.buttons}>

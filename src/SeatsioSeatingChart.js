@@ -261,6 +261,10 @@ SeatsioSeatingChart.propTypes = {
     mode: PropTypes.string,
     showActiveSectionTooltipOnMobile: PropTypes.bool,
     showViewFromYourSeatOnMobile: PropTypes.bool,
-    showViewFromYourSeatOnDesktop: PropTypes.bool
+    showViewFromYourSeatOnDesktop: PropTypes.bool,
+    selectionValidators: PropTypes.array,
+    categories: PropTypes.array,
+    categoryFilter: PropTypes.object,
+    objectCategories: PropTypes.object
 
 }
