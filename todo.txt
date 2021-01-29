@@ -1,19 +1,9 @@
 
 
-selectBestAvailable - deprecated
-showRowLines - no effect on mobile
 holdTokenInputName - is this useful?
-regenerateHoldToken - deprecated
 
-extraConfig
-inputDevice
-loading
 fitTo
-cursorTooltip
-ticketListings
-showZoomOutButtonOnMobile
-showFullScreenButton
 unifiedObjectPropertiesInCallbacks
-channels
+
 
 

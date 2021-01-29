@@ -82,6 +82,8 @@ export default class App extends React.Component {
                         objectCategory={(object, categories, defaultCategory, extraConfig) => {
                             return categories.get('Stalls');
                         }}
+                        inputDevice={"auto"}
+                        loading={"<div class='loader'>Loading...</div>"}
                     />
                 </View>
                 <View style={this.styles.buttons}>

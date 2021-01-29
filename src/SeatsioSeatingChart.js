@@ -267,7 +267,6 @@ SeatsioSeatingChart.propTypes = {
     multiSelectEnabled: PropTypes.bool,
     showMinimap: PropTypes.bool,
     showSectionPricingOverlay: PropTypes.bool,
-    mode: PropTypes.string,
     showActiveSectionTooltipOnMobile: PropTypes.bool,
     showViewFromYourSeatOnMobile: PropTypes.bool,
     showViewFromYourSeatOnDesktop: PropTypes.bool,
@@ -275,6 +274,13 @@ SeatsioSeatingChart.propTypes = {
     categories: PropTypes.array,
     categoryFilter: PropTypes.object,
     objectCategories: PropTypes.object,
-    objectCategory: PropTypes.func
-
+    objectCategory: PropTypes.func,
+    extraConfig: PropTypes.object,
+    mode: PropTypes.string,
+    inputDevice: PropTypes.oneOf(['auto', 'cursor', 'touch']),
+    loading: PropTypes.string,
+    ticketListings: PropTypes.array,
+    showZoomOutButtonOnMobile: PropTypes.bool,
+    showFullScreenButton: PropTypes.bool,
+    channels: PropTypes.array
 }
