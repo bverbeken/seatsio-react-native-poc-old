@@ -258,6 +258,9 @@ SeatsioSeatingChart.propTypes = {
     multiSelectEnabled: PropTypes.bool,
     showMinimap: PropTypes.bool,
     showSectionPricingOverlay: PropTypes.bool,
-    mode: PropTypes.string
+    mode: PropTypes.string,
+    showActiveSectionTooltipOnMobile: PropTypes.bool,
+    showViewFromYourSeatOnMobile: PropTypes.bool,
+    showViewFromYourSeatOnDesktop: PropTypes.bool
 
 }
