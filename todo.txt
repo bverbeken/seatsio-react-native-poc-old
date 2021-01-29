@@ -1,22 +1,14 @@
 
 
-selectBestAvailable
-showRowLines
-showRowLabels
-alwaysShowSectionContents
-session
-holdToken
-holdTokenInputName
-holdOnSelectForGAs
-holdOnSelect
-regenerateHoldToken
-legend
-multiSelectEnabled
-showMinimap
+selectBestAvailable - deprecated
+showRowLines - no effect on mobile
+holdTokenInputName - is this useful?
+regenerateHoldToken - deprecated
+
 showActiveSectionTooltipOnMobile
 showViewFromYourSeatOnMobile
 showViewFromYourSeatOnDesktop
-showSectionPricingOverlay
+
 selectionValidators
 categories
 categoryFilter

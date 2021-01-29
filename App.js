@@ -73,7 +73,11 @@ export default class App extends React.Component {
                         // objectLabel={(object, defaultLabel, extraConfig) => 'abc'}
                         objectIcon={(object, defaultIcon, extraConfig) => 'bullseye'}
                         isObjectVisible={(object, extraConfig) => true}
-
+                        showRowLabels={false}
+                        showLegend={true}
+                        legend={{
+                            hideCategoryName: true
+                        }}
                     />
                 </View>
                 <View style={this.styles.buttons}>

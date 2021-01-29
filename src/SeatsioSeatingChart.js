@@ -228,7 +228,6 @@ SeatsioSeatingChart.propTypes = {
     objectWithoutPricingSelectable: PropTypes.bool,
     objectWithoutCategorySelectable: PropTypes.bool,
     selectedObjects: PropTypes.array,
-    session: PropTypes.oneOf(['continue', 'manual', 'start', 'none']),
     colorScheme: PropTypes.string,
     tooltipInfo: PropTypes.func,
     objectTooltip: PropTypes.object,
@@ -248,5 +247,16 @@ SeatsioSeatingChart.propTypes = {
     objectLabel: PropTypes.func,
     objectIcon: PropTypes.func,
     isObjectVisible: PropTypes.func,
-    canGASelectionBeIncreased: PropTypes.func
+    canGASelectionBeIncreased: PropTypes.func,
+    showRowLabels: PropTypes.bool,
+    alwaysShowSectionContents: PropTypes.bool,
+    session: PropTypes.oneOf(['continue', 'manual', 'start', 'none']),
+    holdToken: PropTypes.string,
+    holdOnSelectForGAs: PropTypes.bool,
+    showLegend: PropTypes.bool,
+    legend: PropTypes.object,
+    multiSelectEnabled: PropTypes.bool,
+    showMinimap: PropTypes.bool,
+    showSectionPricingOverlay: PropTypes.bool
+
 }
