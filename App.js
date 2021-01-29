@@ -41,7 +41,7 @@ export default class App extends React.Component {
                 <View style={this.styles.chart}>
                     <SeatsioSeatingChart
                         workspaceKey="publicDemoKey"
-                        event={"smallTheatreEvent2"}
+                        event={"largeTheatreEvent"}
                         onChartRendered={chart => console.log(chart)}
                         pricing={[
                             {'category': 1, 'price': 120},
@@ -69,16 +69,15 @@ export default class App extends React.Component {
                             'ORGAN': 'Hello World!'
                         }}
                         maxSelectedObjects={3}
-                        objectColor={(obj, defaultColor, extraConfig) => defaultColor}
+                        // objectColor={(obj, defaultColor, extraConfig) => defaultColor}
                         // objectLabel={(object, defaultLabel, extraConfig) => 'abc'}
-                        objectIcon={(object, defaultIcon, extraConfig) => 'bullseye'}
+                        // objectIcon={(object, defaultIcon, extraConfig) => 'bullseye'}
                         isObjectVisible={(object, extraConfig) => true}
                         showRowLabels={false}
                         showLegend={true}
                         legend={{
                             hideCategoryName: true
                         }}
-                        // mode={"static"}
                     />
                 </View>
                 <View style={this.styles.buttons}>
