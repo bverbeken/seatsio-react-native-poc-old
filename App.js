@@ -78,6 +78,7 @@ export default class App extends React.Component {
                         legend={{
                             hideCategoryName: true
                         }}
+                        // mode={"static"}
                     />
                 </View>
                 <View style={this.styles.buttons}>

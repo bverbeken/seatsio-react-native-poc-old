@@ -15,7 +15,6 @@ categoryFilter
 objectCategories
 objectCategory
 extraConfig
-mode
 inputDevice
 loading
 fitTo
